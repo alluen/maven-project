@@ -7,7 +7,7 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.mulesoft.training</groupId>
-	<artifactId>maven-project</artifactId>
+	<artifactId>maven-project-alanchen</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>mule</packaging>
 	<name>Mule maven-project Application</name>
@@ -19,10 +19,36 @@
 		<mule.tools.version>1.2</mule.tools.version>
 		<derby.version>10.14.1.0</derby.version>
 		<activemq.version>5.15.3</activemq.version>
+		<uid>alluen123</uid>
+		<pwd>changeit</pwd>
 	</properties>
 
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>org.mule.tools.maven</groupId>
+				<artifactId>mule-maven-plugin</artifactId>
+				<version>2.2.1</version>
+				<configuration>
+					<deploymentType>cloudhub</deploymentType>
+					<muleVersion>${mule.version}</muleVersion>
+					<username>${uid}</username>
+					<password>${pwd}</password>
+					<workerType>Micro</workerType>
+					<redeploy>true</redeploy>
+					<environment>Sandbox</environment>
+				</configuration>
+				<executions>
+					<execution>
+						<id>deploy</id>
+						<phase>deploy</phase>
+						<goals>
+							<goal>deploy</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
 			<plugin>
 				<groupId>org.mule.tools.maven</groupId>
 				<artifactId>mule-app-maven-plugin</artifactId>
@@ -153,7 +179,13 @@
 			<version>${mule.version}</version>
 			<scope>provided</scope>
 		</dependency>
-
+		<dependency>
+			<groupId>org.mule.modules</groupId>
+			<artifactId>mule-module-json</artifactId>
+			<version>${mule.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		
 		<!-- non mule dependencies -->
 		<dependency>
 			<groupId>org.apache.derby</groupId>
@@ -166,6 +198,7 @@
 			<artifactId>activemq-all</artifactId>
 			<version>${activemq.version}</version>
 		</dependency>
+		
 	</dependencies>
 
 	<repositories>
